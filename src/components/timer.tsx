@@ -5,6 +5,7 @@ import { Timer } from "easytimer.js";
 import { Button } from "./ui/button";
 import { Pause, Play, TimerReset } from "lucide-react";
 import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 
 enum TimerState {
   IDLE = "IDLE",
@@ -90,27 +91,27 @@ export default function TimerComponent() {
 
   return (
     <div
-      className={`w-[36rem] h-4/6 bg-white rounded-xl flex flex-col justify-between items-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] ${outfit.className} p-5`}
+      className={`w-[36rem] h-4/6 bg-white dark:bg-neutral-900 rounded-xl flex flex-col justify-between items-center shadow-[0_8px_30px_rgb(0,0,0,0.12)] ${outfit.className} p-5`}
     >
       {/* tab switch */}
-      <div className="w-full rounded-xl flex items-center justify-around bg-neutral-50">
+      <div className="w-full rounded-xl flex items-center justify-around bg-neutral-50 dark:bg-neutral-800">
         <div
           onClick={() => setActive("work")}
           className={`w-full flex items-center justify-center  hover:shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] cursor-pointer text-black py-2 m-1 rounded-lg ${
             active === "work" &&
-            "shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] bg-white"
+            "shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] bg-white dark:bg-neutral-900"
           }`}
         >
-          <p>Work</p>
+          <p className="dark:text-white">Work</p>
         </div>
         <div
           onClick={() => setActive("chill")}
           className={`w-full flex items-center justify-center hover:shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] cursor-pointer text-black py-2 m-1 rounded-lg ${
             active === "chill" &&
-            "shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] bg-white"
+            "shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] bg-white dark:bg-neutral-900"
           }`}
         >
-          <p>Chill</p>
+          <p className="dark:text-white">Chill</p>
         </div>
       </div>
       {/* tab switch ends */}
@@ -131,23 +132,29 @@ export default function TimerComponent() {
             </p>
           </div>
         ) : (
-          <div className="w-full flex items-center justify-center space-x-2">
-            <Input
-              value={hours}
-              onChange={(e) => sethours(parseInt(e.target.value))}
-              className="w-1/6"
-              placeholder="Hours"
-              type="number"
-              min={0}
-            />
-            <Input
-              value={minutes}
-              onChange={handleInputChange}
-              className="w-1/6"
-              placeholder="Minutes"
-              type="number"
-              min={0}
-            />
+          <div className="w-full flex items-center justify-center space-x-10">
+            <div className="w-full flex flex-col items-end">
+              <Label className="w-full flex items-center justify-end mb-2" htmlFor="hours">Hours</Label>
+              <Input
+                id="hours"
+                value={hours}
+                onChange={(e) => sethours(parseInt(e.target.value))}
+                className="w-2/6"
+                type="number"
+                min={0}
+              />
+            </div>
+            <div className="w-full flex flex-col items-start ">
+              <Label className="w-full flex items-center justify-start mb-2" htmlFor="minutes">Minutes</Label>
+              <Input
+                id="minutes"
+                value={minutes}
+                onChange={handleInputChange}
+                className="w-2/6"
+                type="number"
+                min={0}
+              />
+            </div>
           </div>
         )}
       </div>
